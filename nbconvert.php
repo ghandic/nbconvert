@@ -10,9 +10,10 @@
 
 
 function add_newstyle_stylesheet() {
+
     wp_register_style(
         'nbconvert',
-        get_template_directory_uri() . '/css/nbconvert.css'
+        dirname(__FILE__) . '/css/nbconvert.css'
     );
     wp_enqueue_style( 'nbconvert' );
 }
