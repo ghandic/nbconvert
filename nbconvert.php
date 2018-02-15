@@ -8,6 +8,17 @@
    License: MIT
    */
 
+
+function add_newstyle_stylesheet() {
+    wp_register_style(
+        'nbconvert',
+        get_template_directory_uri() . '/css/nbconvert.css'
+    );
+    wp_enqueue_style( 'nbconvert' );
+}
+add_action( 'wp_enqueue_scripts', 'add_newstyle_stylesheet' );
+
+
 //tell wordpress to register the nbconvert shortcode
 
 add_shortcode("nbconvert", "nbconvert_handler");
