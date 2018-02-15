@@ -31,6 +31,7 @@ function get_most_recent_git_change_for_file($url) {
 
   $dates = array();
   foreach($html->find('time-ago') as $element) {
+    print_r($element);
     $dtime = $element->datetime;
     print_r($dtime);
     $dates[] = date_create_from_format('Y-m-d\TH:i:sZ', $s);
