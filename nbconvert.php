@@ -41,7 +41,7 @@ function get_most_recent_git_change_for_file($url) {
   //Get all links. You could also use any other tag name here,
   //like 'img' or 'table', to extract other tags.
   $time_agos = $dom->getElementsByTagName('time-ago');
-  print_r($time_agos)
+  print_r($time_agos);
   //$dates = array();
   //Iterate over the extracted links and display their URLs
   //foreach ($time_agos as $time_ago){
