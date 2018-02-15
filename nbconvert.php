@@ -19,6 +19,28 @@ function nbconvert_handler($atts) {
   return $nb_output;
 }
 
+
+function get_most_recent_git_change_for_file($url) {
+  
+  $url_list = explode('/', $url);
+  $url_list[5] = 'blame';
+  $new_url = implode(",", $array);
+
+  $html = file_get_html($new_url);
+
+  $dates = array();
+  foreach($html->find('time-ago') as $element) {
+    $dtime = $element->datetime;
+    $dates[] = date_create_from_format('Y-m-d\TH:i:sZ', $s);
+  };
+  $max_date = max($dates);
+
+  $formatted_date = date('Y-m-d H:i:s', $max);
+
+  return $formatted_date;
+}
+
+
 function nbconvert_function($atts) {
   //process plugin
   extract(shortcode_atts(array(
@@ -28,9 +50,11 @@ function nbconvert_function($atts) {
   $clean_url = preg_replace('#^https?://#', '', rtrim($url,'/'));
   $html = file_get_contents("https://nbviewer.jupyter.org/url/" . $clean_url);
   $nb_output = getHTMLByID('notebook-container', $html);
+
+  $last_update_date_time = get_most_recent_git_change_for_file($url);
   //send back text to calling function
   return '<div class="nbconvert-notebook">
-            <label><a href="'. $url . '" target="_blank">Check it out on github</a></label>' . $nb_output . '</div>';
+            <label><a href="'. $url . '" target="_blank">Check it out on github, last updated:' . $last_update_date_time . '</a></label>' . $nb_output . '</div>';
 }
 
 function innerHTML(DOMNode $elm) {
