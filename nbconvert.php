@@ -66,11 +66,7 @@ function nbconvert_function($atts) {
   $html = file_get_contents("https://nbviewer.jupyter.org/url/" . $clean_url);
   $nb_output = getHTMLByID('notebook-container', $html);
 
-  try {
-    $last_update_date_time = get_most_recent_git_change_for_file($url);
-  } catch (Exception $e) {
-    $last_update_date_time = 'didnt work';
-  }
+  $last_update_date_time = get_most_recent_git_change_for_file($url);
 
   
   //send back text to calling function
