@@ -27,9 +27,28 @@ function get_most_recent_git_change_for_file($url) {
   $url_list = explode('/', $url);
   $url_list[5] = 'blame';
   $new_url = implode("/", $url_list);
+  //Load the HTML page
   $html = file_get_contents($new_url);
-
+  
+  //Create a new DOM document
+  $dom = new DOMDocument;
+   
+  //Parse the HTML. The @ is used to suppress any parsing errors
+  //that will be thrown if the $html string isn't valid XHTML.
+  @$dom->loadHTML($html);
+   
+  //Get all links. You could also use any other tag name here,
+  //like 'img' or 'table', to extract other tags.
+  $time_agos = $dom->getElementsByTagName('time-ago');
+  
   $dates = array();
+  //Iterate over the extracted links and display their URLs
+  foreach ($timae_agos as $time_ago){
+      //Extract and show the "href" attribute. 
+      $dates[] = $time_ago->getAttribute('datetime'), '<br>';
+  }
+  print_r($dates);
+
   foreach($html->find('time-ago') as $element) {
     print_r($element);
     $dtime = $element->datetime;
