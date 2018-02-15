@@ -84,7 +84,7 @@ function nbconvert_function($atts) {
   
   //send back text to calling function
   return '<div class="nbconvert-notebook">
-            <label><a href="'. $url . '" target="_blank">Check it out on github, <time-ago>last updated: ' . $last_update_date_time . '</time-ago</a></label>' . $nb_output . '</div>';
+            <label><a href="'. $url . '" target="_blank">Check it out on github, <time-ago>last updated: ' . $last_update_date_time . '</time-ago></a></label>' . $nb_output . '</div>';
 }
 
 function innerHTML(DOMNode $elm) {
