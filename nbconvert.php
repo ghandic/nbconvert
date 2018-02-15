@@ -51,21 +51,8 @@ function get_most_recent_git_change_for_file($url) {
   }
 
   $max_date = date('Y-m-d H:i:s', max($datetimes));
-  print_r($max_date);
+  return $max_date;
   
-
-  /*foreach($html->find('time-ago') as $element) {
-    print_r($element);
-    $dtime = $element->datetime;
-    print_r($dtime);
-    $dates[] = date_create_from_format('Y-m-d\TH:i:sZ', $s);
-  };
-  */
-  //$max_date = max($dates);
-
-  //$formatted_date = date('Y-m-d H:i:s', $max);
-
-  //return $formatted_date;
 }
 
 
