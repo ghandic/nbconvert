@@ -9,6 +9,64 @@
    */
 
 
+function sprintf_array($string, $array)
+{
+    $keys    = array_keys($array);
+    $keysmap = array_flip($keys);
+    $values  = array_values($array);
+   
+    while (preg_match('/%\(([a-zA-Z0-9_ -]+)\)/', $string, $m))
+    {   
+        if (!isset($keysmap[$m[1]]))
+        {
+            echo "No key $m[1]\n";
+            return false;
+        }
+       
+        $string = str_replace($m[0], '%' . ($keysmap[$m[1]] + 1) . '$', $string);
+    }
+   
+    array_unshift($values, $string);
+    var_dump($values);
+    return call_user_func_array('sprintf', $values);
+}
+
+
+function get_last_update_time($url) {
+
+  $url_list = explode('/', $url);
+
+  $info = array('repo' => $url_list[4], 
+                'owner' => $url_list[3], 
+                'branch' => $url_list[6], 
+                'path' => implode("/", array_slice($url_list, 7))
+              );
+
+  $request_url = sprintf_array('https://api.github.com/repos/%(owner)/%(repo)/commits/%(branch)?path=%(path)&page=1', $info);
+
+  //Initialize cURL.
+  $ch = curl_init();
+   
+  //Set the URL that you want to GET by using the CURLOPT_URL option.
+  curl_setopt($ch, CURLOPT_URL, $request_url);
+
+  //Set CURLOPT_RETURNTRANSFER so that the content is returned as a variable.
+  curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+   
+  //Set CURLOPT_FOLLOWLOCATION to true to follow redirects.
+  curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+
+  //Execute the request.
+  $data = curl_exec($ch);
+   
+  //Close the cURL handle.
+  curl_close($ch);
+
+  print_r($data)
+}
+
+
+
 function add_newstyle_stylesheet() {
 
     wp_register_style(
@@ -78,6 +136,8 @@ function nbconvert_function($atts) {
   $last_update_date_time = get_most_recent_git_change_for_file($url);
 
   
+  get_last_update_time($url);
+
   //send back text to calling function
   return '<div class="nbconvert-notebook">
             <label><a href="'. $url . '" target="_blank">Check it out on github </a> <time-ago>last updated: ' . $last_update_date_time . '</time-ago></label>' . $nb_output . '</div>';
