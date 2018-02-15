@@ -57,11 +57,11 @@ function get_most_recent_git_change_for_file($url) {
     $dates[] = date_create_from_format('Y-m-d\TH:i:sZ', $s);
   };
   */
-  $max_date = max($dates);
+  //$max_date = max($dates);
 
-  $formatted_date = date('Y-m-d H:i:s', $max);
+  //$formatted_date = date('Y-m-d H:i:s', $max);
 
-  return $formatted_date;
+  //return $formatted_date;
 }
 
 
