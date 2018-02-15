@@ -29,7 +29,8 @@ function nbconvert_function($atts) {
   $html = file_get_contents("https://nbviewer.jupyter.org/url/" . $clean_url);
   $nb_output = getHTMLByID('notebook-container', $html);
   //send back text to calling function
-  return $nb_output;
+  return '<div class="nbconvert-notebook">
+            <label><a href="'. $url . '" target="_blank">Check it out on github</a></label>' . $nb_output . '</div>';
 }
 
 function innerHTML(DOMNode $elm) {
