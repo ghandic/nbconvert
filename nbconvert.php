@@ -41,14 +41,14 @@ function get_most_recent_git_change_for_file($url) {
   //Get all links. You could also use any other tag name here,
   //like 'img' or 'table', to extract other tags.
   $time_agos = $dom->getElementsByTagName('time-ago');
-  print_r($time_agos);
-  //$dates = array();
+
+  $dates = array();
   //Iterate over the extracted links and display their URLs
-  //foreach ($time_agos as $time_ago){
+  foreach ($time_agos as $time_ago){
       //Extract and show the "href" attribute. 
-  //    $time_ago->getAttribute('datetime'), '<br>';
-  //};
-  //print_r($dates);
+      $time_ago->getAttribute('datetime'), '<br>';
+  };
+  print_r($dates);
 
   /*foreach($html->find('time-ago') as $element) {
     print_r($element);
