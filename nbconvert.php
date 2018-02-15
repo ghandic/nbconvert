@@ -42,17 +42,28 @@ function get_most_recent_git_change_for_file($url) {
   //like 'img' or 'table', to extract other tags.
   $time_agos = $dom->getElementsByTagName('time-ago');
 
-  $datetimes = array();
+  /*$datetimes = array();
   //Iterate over the extracted links and display their URLs
   foreach ($time_agos as $time_ago) {
       //Extract and show the "href" attribute. 
     $datetime = $time_ago->getAttribute('datetime');
     $datetimes[] = date_create_from_format('Y-m-d\TH:i:sZ', $datetime);
   }
+  */
 
-  print_r(arsort($datetimes)[0]);
+  $mostRecent= 0;
+  foreach($time_agos as $time_ago){
+    $datetime = $time_ago->getAttribute('datetime');
+    $curDate = strtotime($datetime);
+    if ($curDate > $mostRecent) {
+       $mostRecent = $curDate;
+    }
+  }
 
-  $max_date = date('Y-m-d H:i:s', arsort($datetimes)[0]);
+
+  print_r($mostRecent);
+
+  $max_date = date('Y-m-d H:i:s', $mostRecent);
   return $max_date;
   
 }
