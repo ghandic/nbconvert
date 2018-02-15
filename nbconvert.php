@@ -42,13 +42,13 @@ function get_most_recent_git_change_for_file($url) {
   //like 'img' or 'table', to extract other tags.
   $time_agos = $dom->getElementsByTagName('time-ago');
 
-  $dates = array();
+  $datetimes = array();
   //Iterate over the extracted links and display their URLs
   foreach ($time_agos as $time_ago) {
       //Extract and show the "href" attribute. 
-    $datetime = $time_ago->getAttribute('datetime');
-    print_r($datetime);
+    $datetimes[] = $time_ago->getAttribute('datetime');
   }
+  print_r($datetimes);
   
 
   /*foreach($html->find('time-ago') as $element) {
