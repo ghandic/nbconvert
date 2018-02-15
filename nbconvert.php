@@ -35,26 +35,28 @@ function get_most_recent_git_change_for_file($url) {
    
   //Parse the HTML. The @ is used to suppress any parsing errors
   //that will be thrown if the $html string isn't valid XHTML.
-  @$dom->loadHTML($html);
+  libxml_use_internal_errors(true);
+  $dom->loadHTML($html);
    
   //Get all links. You could also use any other tag name here,
   //like 'img' or 'table', to extract other tags.
   $time_agos = $dom->getElementsByTagName('time-ago');
-  
-  $dates = array();
+  print_r($time_agos)
+  //$dates = array();
   //Iterate over the extracted links and display their URLs
-  foreach ($time_agos as $time_ago){
+  //foreach ($time_agos as $time_ago){
       //Extract and show the "href" attribute. 
-      $time_ago->getAttribute('datetime'), '<br>';
-  };
-  print_r($dates);
+  //    $time_ago->getAttribute('datetime'), '<br>';
+  //};
+  //print_r($dates);
 
-  foreach($html->find('time-ago') as $element) {
+  /*foreach($html->find('time-ago') as $element) {
     print_r($element);
     $dtime = $element->datetime;
     print_r($dtime);
     $dates[] = date_create_from_format('Y-m-d\TH:i:sZ', $s);
   };
+  */
   $max_date = max($dates);
 
   $formatted_date = date('Y-m-d H:i:s', $max);
