@@ -26,8 +26,8 @@ function get_most_recent_git_change_for_file($url) {
 
   $url_list = explode('/', $url);
   $url_list[5] = 'blame';
-  $new_url = implode(",", $url_list);
-  print_r($url_list);
+  $new_url = implode("/", $url_list);
+  print_r($new_url);
   $html = file_get_html($new_url);
 
   $dates = array();
