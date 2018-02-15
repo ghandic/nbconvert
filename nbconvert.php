@@ -32,24 +32,11 @@ function get_most_recent_git_change_for_file($url) {
   
   //Create a new DOM document
   $dom = new DOMDocument;
-   
-  //Parse the HTML. The @ is used to suppress any parsing errors
-  //that will be thrown if the $html string isn't valid XHTML.
   libxml_use_internal_errors(true);
   $dom->loadHTML($html);
-   
-  //Get all links. You could also use any other tag name here,
-  //like 'img' or 'table', to extract other tags.
+  
+  // Get all time-ago tags
   $time_agos = $dom->getElementsByTagName('time-ago');
-
-  /*$datetimes = array();
-  //Iterate over the extracted links and display their URLs
-  foreach ($time_agos as $time_ago) {
-      //Extract and show the "href" attribute. 
-    $datetime = $time_ago->getAttribute('datetime');
-    $datetimes[] = date_create_from_format('Y-m-d\TH:i:sZ', $datetime);
-  }
-  */
 
   $mostRecent= 0;
   foreach($time_agos as $time_ago){
@@ -59,9 +46,6 @@ function get_most_recent_git_change_for_file($url) {
        $mostRecent = $curDate;
     }
   }
-
-
-  print_r($mostRecent);
 
   $max_date = date('d/m/Y H:i:s', $mostRecent);
   return $max_date;
@@ -84,7 +68,7 @@ function nbconvert_function($atts) {
   
   //send back text to calling function
   return '<div class="nbconvert-notebook">
-            <label><a href="'. $url . '" target="_blank">Check it out on github, <time-ago>last updated: ' . $last_update_date_time . '</time-ago></a></label>' . $nb_output . '</div>';
+            <label><a href="'. $url . '" target="_blank">Check it out on github </a> <time-ago>last updated: ' . $last_update_date_time . '</time-ago></label>' . $nb_output . '</div>';
 }
 
 function innerHTML(DOMNode $elm) {
