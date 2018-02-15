@@ -30,6 +30,7 @@ function get_most_recent_git_change_for_file($url) {
   $html = file_get_contents($new_url);
 
   $dates = array();
+  print_r($dates);
   foreach($html->find('time-ago') as $element) {
     print_r($element);
     $dtime = $element->datetime;
