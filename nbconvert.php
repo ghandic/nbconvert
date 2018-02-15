@@ -25,12 +25,13 @@ function get_most_recent_git_change_for_file($url) {
   $url_list = explode('/', $url);
   $url_list[5] = 'blame';
   $new_url = implode(",", $array);
-
+  print_r($new_url);
   $html = file_get_html($new_url);
 
   $dates = array();
   foreach($html->find('time-ago') as $element) {
     $dtime = $element->datetime;
+    print_r($dtime);
     $dates[] = date_create_from_format('Y-m-d\TH:i:sZ', $s);
   };
   $max_date = max($dates);
@@ -55,7 +56,7 @@ function nbconvert_function($atts) {
     $last_update_date_time = get_most_recent_git_change_for_file($url);
   } catch (Exception $e) {
     $last_update_date_time = 'didnt work';
-}
+  }
 
   
   //send back text to calling function
