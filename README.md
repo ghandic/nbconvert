@@ -1,4 +1,11 @@
-# How it works
+# nbconvert
+
+## Installation
+
+Simply install [WP Pusher](https://wppusher.com/) by downloading and installing the package from a zip file then add my wordpress plugin from my git repo! by adding the uri into the git plugin installer (ghandic/nbconvert)
+
+
+## How it works
 
 Simply add a shortcode and a url to the notebook file
 
