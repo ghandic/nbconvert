@@ -22,6 +22,8 @@ function nbconvert_handler($atts) {
 
 function get_most_recent_git_change_for_file($url) {
   
+  print_r($url);
+
   $url_list = explode('/', $url);
   $url_list[5] = 'blame';
   $new_url = implode(",", $array);
