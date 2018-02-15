@@ -46,7 +46,7 @@ function get_most_recent_git_change_for_file($url) {
   //Iterate over the extracted links and display their URLs
   foreach ($time_agos as $time_ago) {
       //Extract and show the "href" attribute. 
-    $datetime = $time_ago->getAttribute('datetime'), '<br>';
+    $datetime = $time_ago->getAttribute('datetime');
     print_r($datetime);
   }
   
