@@ -50,7 +50,7 @@ function get_most_recent_git_change_for_file($url) {
     $datetimes[] = date_create_from_format('Y-m-d\TH:i:sZ', $datetime);
   }
 
-  print_r(max($datetimes))
+  print_r(max($datetimes));
 
   $max_date = date('Y-m-d H:i:s', max($datetimes));
   return $max_date;
