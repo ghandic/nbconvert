@@ -63,7 +63,7 @@ function get_most_recent_git_change_for_file($url) {
 
   print_r($mostRecent);
 
-  $max_date = date('Y-m-d H:i:s', $mostRecent);
+  $max_date = date('d/m/Y H:i:s', $mostRecent);
   return $max_date;
   
 }
