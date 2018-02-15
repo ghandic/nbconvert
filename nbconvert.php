@@ -49,7 +49,10 @@ function get_most_recent_git_change_for_file($url) {
     $datetime = $time_ago->getAttribute('datetime');
     $datetimes[] = date_create_from_format('Y-m-d\TH:i:sZ', $datetime);
   }
-  print_r($datetimes);
+
+  $max_date = max($datetimes);
+  $formatted_date = date('Y-m-d H:i:s', $max);
+  print_r($formatted_date);
   
 
   /*foreach($html->find('time-ago') as $element) {
