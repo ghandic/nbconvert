@@ -1,13 +1,44 @@
 
 /************** NbConvert CSS ************************/
 
+
 div.notebook {
-  border: 3px dashed #345;
-  padding:10px;
+    position: relative;
+    font-size: 0.75em;
+    border: 3px dashed;
+    padding: 10px;
+    margin-bottom:15px
 }
 
-div.nbconvert-labels {
-  border-bottom: 3px solid #345;
+div.notebook label.github-last-update {
+  color:rgba(225, 246, 255, 0.45);
+  font-weight:200;
+  display: inline;
+}
+
+div.notebook div.nbconvert-labels label.github-link a,
+div.notebook div.nbconvert-labels label.github-link a:focus {
+  color:#fff;
+  -webkit-box-shadow:none;
+  box-shadow:none;
+}
+
+div.notebook div.nbconvert-labels {
+  color:white;
+  line-height: 20px;
+  padding: 0px 5px;
+  position: absolute;
+  background-color: #345;
+  top: -3px;
+  left: -3px;
+  text-transform:none;
+  font-size:1.1em;
+  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+
+}
+
+div.notebook div.nbconvert {
+  margin-top: 20px;
 }
 
 /************** Jupyter Notebook CSS ************************/
