@@ -9,73 +9,10 @@
    */
 
 
-function sprintf_array($string, $array)
-{
-    $keys    = array_keys($array);
-    $keysmap = array_flip($keys);
-    $values  = array_values($array);
-   
-    while (preg_match('/%\(([a-zA-Z0-9_ -]+)\)/', $string, $m))
-    {   
-        if (!isset($keysmap[$m[1]]))
-        {
-            echo "No key $m[1]\n";
-            return false;
-        }
-       
-        $string = str_replace($m[0], '%' . ($keysmap[$m[1]] + 1) . '$', $string);
-    }
-   
-    array_unshift($values, $string);
-    var_dump($values);
-    return call_user_func_array('sprintf', $values);
-}
-
-
-function get_last_update_time($url) {
-
-  $url_list = explode('/', $url);
-
-  $info = array('repo' => $url_list[4], 
-                'owner' => $url_list[3], 
-                'branch' => $url_list[6], 
-                'path' => implode("/", array_slice($url_list, 7))
-              );
-
-  $request_url = sprintf_array('https://api.github.com/repos/%(owner)/%(repo)/commits/%(branch)?path=%(path)&page=1', $info);
-
-  //Initialize cURL.
-  $ch = curl_init();
-   
-  //Set the URL that you want to GET by using the CURLOPT_URL option.
-  curl_setopt($ch, CURLOPT_URL, $request_url);
-
-  //Set CURLOPT_RETURNTRANSFER so that the content is returned as a variable.
-  curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-   
-  //Set CURLOPT_FOLLOWLOCATION to true to follow redirects.
-  curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
-
-  //Execute the request.
-  $data = curl_exec($ch);
-   
-  //Close the cURL handle.
-  curl_close($ch);
-
-  print_r($data)
-}
 
 
 
-function add_newstyle_stylesheet() {
-
-    wp_register_style(
-        'nbconvert',
-        dirname(__FILE__) . '/css/nbconvert.css'
-    );
-    wp_enqueue_style( 'nbconvert' );
-}
-add_action( 'wp_enqueue_scripts', 'add_newstyle_stylesheet' );
+wp_enqueue_style( 'NbConvert', plugins_url( '/css/nbconvert.css', __FILE__ ));
 
 
 //tell wordpress to register the nbconvert shortcode
@@ -90,10 +27,39 @@ function nbconvert_handler($atts) {
 }
 
 
+function get_most_recent_git_change_for_file_from_api($url) {
+
+  $url_list = explode('/', $url);
+
+  $owner = $url_list[3];
+  $repo = $url_list[4];
+  $branch = $url_list[6];
+  $path = implode("/", array_slice($url_list, 7));
+
+  $request_url = 'https://api.github.com/repos/'.$owner.'/'.$repo.'/commits/'.$branch.'?path='. $path.'&page=1';
+
+  $context_params = array(
+    'http' => array(
+      'method' => 'GET',
+      'user_agent' => 'Bogus user agent',
+      'timeout' => 1
+    )
+  );
+
+  
+  $res = file_get_contents($request_url, FALSE, stream_context_create($context_params));
+
+  $datetime = json_decode($res, true)['commit']['committer']['date'];
+
+  $max_datetime = strtotime($datetime);
+  $max_datetime_f = date('d/m/Y H:i:s', $max_datetime);
+
+  return $max_datetime_f;
+}
+
+/*
 function get_most_recent_git_change_for_file($url) {
   
-
-
   $url_list = explode('/', $url);
   $url_list[5] = 'blame';
   $new_url = implode("/", $url_list);
@@ -121,7 +87,7 @@ function get_most_recent_git_change_for_file($url) {
   return $max_date;
   
 }
-
+*/
 
 function nbconvert_function($atts) {
   //process plugin
@@ -133,14 +99,21 @@ function nbconvert_function($atts) {
   $html = file_get_contents("https://nbviewer.jupyter.org/url/" . $clean_url);
   $nb_output = getHTMLByID('notebook-container', $html);
 
-  $last_update_date_time = get_most_recent_git_change_for_file($url);
+  $last_update_date_time = get_most_recent_git_change_for_file_from_api($url);
 
-  
-  get_last_update_time($url);
+  $converted_nb = '<div class="notebook">
+    <div class="nbconvert-labels">
+      <label class="github-link">
+        <a href="'.$url.'" target="_blank">Check it out on github</a>
+        <label class="github-last-update"> Last updated: '.$last_update_date_time.'</label>
+      </label>
+      </div>
+    <div class="nbconvert">'.$nb_output.'
+    </div>
+  </div>';
 
   //send back text to calling function
-  return '<div class="nbconvert-notebook">
-            <label><a href="'. $url . '" target="_blank">Check it out on github </a> <time-ago>last updated: ' . $last_update_date_time . '</time-ago></label>' . $nb_output . '</div>';
+  return $converted_nb;
 }
 
 function innerHTML(DOMNode $elm) {
