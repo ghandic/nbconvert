@@ -1,41 +1,26 @@
+@charset "UTF-8";
 /************** NbConvert CSS *********************** */
-div.notebook {
-  position: relative;
-  font-size: 0.75em;
-  border: 3px dashed;
-  padding: 10px;
-  margin-bottom: 15px;
-}
 div.notebook label.github-last-update {
-  color: rgba(225, 246, 255, 0.45);
-  font-weight: 200;
-  display: inline;
+  display: none;
 }
-div.notebook div.nbconvert-labels {
-  color: white;
-  line-height: 20px;
-  padding: 0px 5px;
-  position: absolute;
-  background-color: #345;
-  top: -3px;
-  left: -3px;
-  text-transform: none;
-  font-size: 1.1em;
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+
+div.notebook pre {
+  background: none;
 }
+
 div.notebook div.nbconvert-labels label.github-link a {
-  color: #fff;
-  -webkit-box-shadow: none;
-  box-shadow: none;
+  font-size: 0;
 }
-div.notebook div.nbconvert-labels label.github-link a:focus {
-  color: #fff;
-  -webkit-box-shadow: none;
-  box-shadow: none;
+
+div.notebook div.nbconvert-labels label.github-link a:after {
+  content: "(Veja o conteúdo abaixo no GitHub.)";
+  font-size: 18px;
 }
+
 div.notebook div.nbconvert {
   margin-top: 25px;
 }
+
 div.notebook div.nbconvert .input pre {
   text-align: left;
 }
@@ -49,116 +34,89 @@ div.notebook div.nbconvert div .dataframe {
   border: none;
   margin: 0 auto;
 }
+
 div.notebook div.nbconvert div.output_stdout pre {
   max-height: 300px;
 }
+
 div.notebook div.nbconvert div.output_stderr pre {
   background: #fdd;
   margin: 0;
   max-height: 300px;
 }
+
 div.notebook div.nbconvert div.hl-ipython3 pre {
   margin: 0;
 }
+
 div.notebook div.nbconvert .dataframe thead tr:only-child th {
   text-align: right;
   text-transform: capitalize;
 }
+
 div.notebook div.nbconvert .dataframe thead th {
   text-align: left;
 }
+
 div.notebook div.nbconvert .dataframe tbody tr th {
   vertical-align: top;
 }
-div.notebook div.nbconvert .rendered_html tbody tr:nth-child(odd) {
-  background: #f5f5f5;
-}
-div.notebook div.nbconvert .rendered_html tbody tr:nth-child(odd) td {
-  background: #f5f5f5;
-}
-div.notebook div.nbconvert .rendered_html tr, div.notebook div.nbconvert .rendered_html th, div.notebook div.nbconvert .rendered_html td {
-  text-align: right;
-  vertical-align: middle;
-  padding: 0.5em 0.5em;
-  line-height: normal;
-  white-space: normal;
-  max-width: none;
-  border: none;
-}
+
 div.notebook div.nbconvert .input_prompt {
   color: #303F9F;
   font-weight: bold;
   float: left;
   margin-right: 5px;
-  margin-top: 3px;
+  margin-top: 0.5em;
+  margin-left: -5em;
 }
+
 div.notebook div.nbconvert .input_area pre {
   border: 1px solid #cfcfcf;
   border-radius: 2px;
-  background: #f7f7f7;
   line-height: 1.21429em;
   padding: 6px 3px 6px 6px;
 }
+
 div.notebook div.nbconvert .output_prompt {
   color: #cc0000;
   font-weight: bold;
+  margin-top: 0.55em;
+  margin-left: -5em;
 }
+
 div.notebook div.nbconvert .prompt {
   font-family: monospace;
   font-size: 14px;
   float: left;
 }
+
 div.notebook div.nbconvert div.prompt.output_prompt + div.output_area pre {
   background-color: #FFFFFF;
 }
+
 div.notebook div.nbconvert .output_stdout pre {
   background-color: #FFFFFF;
   padding-left: 10%;
 }
+
 div.notebook div.nbconvert div.output_area pre {
   margin: 0;
-  padding: 0;
+  padding: 6px 3px 6px 6px;
   border: 0;
   vertical-align: baseline;
   color: #000;
   background-color: transparent;
   border-radius: 0;
 }
-div.notebook div.nbconvert a.anchor-link:link {
-  text-decoration: none;
-  padding: 0 20px;
-  visibility: hidden;
-}
-div.notebook div.nbconvert a:focus, div.notebook div.nbconvert a:hover {
-  color: #23527c;
-  text-decoration: underline;
-}
+
 div.notebook div.nbconvert .code_cell {
   padding-left: 1%;
 }
+
 div.notebook div.nbconvert .cell {
   margin-top: 10px;
   margin-bottom: 10px;
-}
-div.notebook div.nbconvert br {
-  line-height: 2;
-}
-div.notebook div.nbconvert blockquote {
-  font-size: 1em;
-  text-align: left;
-  font-weight: normal;
-}
-div.notebook div.nbconvert code {
-  border: none;
-  box-shadow: none;
-  font-family: monospace;
-}
-div.notebook div.nbconvert div.rendered_html h1, div.notebook div.nbconvert div.rendered_html h2, div.notebook div.nbconvert div.rendered_html h3, div.notebook div.nbconvert div.rendered_html h4 {
-  margin-top: 30px;
-  margin-bottom: 10px;
-}
-div.notebook div.nbconvert div.rendered_html p a {
-  color: #4D00FF;
 }
 
 /************** Jupyter Notebook CSS *********************** */
@@ -529,5 +487,3 @@ div.notebook div.nbconvert div.rendered_html p a {
 }
 
 /* Literal.Number.Integer.Long */
-
-/*# sourceMappingURL=nbconvert.css.map */
